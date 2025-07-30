@@ -187,3 +187,88 @@ section p {
 .whatsapp-icon:hover {
   transform: scale(1.1);
 }
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #d62828;
+  color: white;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo img {
+  height: 40px;
+}
+
+.nav-logo span {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+/* Responsive Nav */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background: #d62828;
+    width: 100%;
+    flex-direction: column;
+    display: none;
+  }
+
+  #menu-toggle:checked ~ .nav-links {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+}
+
+/* Footer Styles */
+.footer {
+  background: #1d1d1d;
+  color: #ccc;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
+
+.footer a {
+  color: #00ff88;
+  text-decoration: none;
+}
