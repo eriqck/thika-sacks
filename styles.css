@@ -1413,6 +1413,10 @@ button {
     width: min(100% - 1rem, 1280px);
   }
 
+  main {
+    padding-bottom: 5.75rem;
+  }
+
   .site-header {
     top: 0;
   }
@@ -1442,14 +1446,18 @@ button {
   }
 
   .site-nav {
-    gap: 0.5rem;
-    padding-top: 0.25rem;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.35rem;
+    overflow: visible;
+    padding-top: 0.15rem;
   }
 
   .site-nav a {
-    flex: 0 0 auto;
-    padding: 0.62rem 0.9rem;
-    font-size: 0.82rem;
+    min-width: 0;
+    padding: 0.52rem 0.35rem;
+    font-size: 0.74rem;
+    text-align: center;
     white-space: nowrap;
   }
 
@@ -1457,12 +1465,15 @@ button {
     width: 100%;
     justify-content: space-between;
     margin-left: 0;
+    gap: 0.55rem;
   }
 
   .ghost-link,
   .header-cart-button {
     flex: 1 1 0;
     justify-content: center;
+    padding: 0.72rem 0.8rem;
+    font-size: 0.8rem;
   }
 
   .hero-main-card,
@@ -1512,39 +1523,49 @@ button {
 
   .sticky-cart-bar {
     bottom: 0.65rem;
-    width: min(calc(100% - 0.85rem), 32rem);
-    padding: 0.35rem;
+    width: min(calc(100% - 1rem), 24rem);
+    padding: 0.28rem;
   }
 
   .sticky-cart-content {
     flex-direction: row;
     align-items: center;
-    gap: 0.55rem;
-    padding: 0.65rem 0.8rem;
+    gap: 0.45rem;
+    padding: 0.55rem 0.65rem;
   }
 
   .sticky-cart-content p {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
   }
 
   .sticky-cart-content span {
     margin-top: 0.15rem;
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     line-height: 1.25;
   }
 
   .sticky-cart-actions {
     flex: 0 0 auto;
     width: auto;
-    gap: 0.45rem;
+    gap: 0;
   }
 
   .sticky-cart-actions button,
   .sticky-cart-actions a {
     flex: 0 0 auto;
     min-width: 0;
-    padding: 0.62rem 0.82rem;
-    font-size: 0.76rem;
+    padding: 0.55rem 0.78rem;
+    font-size: 0.72rem;
+  }
+
+  .sticky-cart-primary {
+    display: none;
+  }
+
+  .sticky-cart-secondary {
+    border-radius: 999px;
+    padding: 0.58rem 0.82rem;
+    white-space: nowrap;
   }
 
   .sticky-cart-content p,
