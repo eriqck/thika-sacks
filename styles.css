@@ -1505,29 +1505,66 @@ button {
   }
 
   .catalog-actions,
-  .cart-item-actions,
-  .sticky-cart-content {
+  .cart-item-actions {
     flex-direction: column;
     align-items: stretch;
   }
 
   .sticky-cart-bar {
-    bottom: 0.75rem;
-    width: min(calc(100% - 1rem), 48rem);
+    bottom: 0.65rem;
+    width: min(calc(100% - 0.85rem), 32rem);
+    padding: 0.35rem;
+  }
+
+  .sticky-cart-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.65rem 0.8rem;
+  }
+
+  .sticky-cart-content p {
+    font-size: 0.78rem;
+  }
+
+  .sticky-cart-content span {
+    margin-top: 0.15rem;
+    font-size: 0.68rem;
+    line-height: 1.25;
   }
 
   .sticky-cart-actions {
-    width: 100%;
+    flex: 0 0 auto;
+    width: auto;
+    gap: 0.45rem;
   }
 
   .sticky-cart-actions button,
   .sticky-cart-actions a {
-    flex: 1;
+    flex: 0 0 auto;
+    min-width: 0;
+    padding: 0.62rem 0.82rem;
+    font-size: 0.76rem;
   }
 
   .sticky-cart-content p,
   .sticky-cart-content span {
-    text-align: center;
+    text-align: left;
+  }
+
+  .sticky-cart-content > div:first-child {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .sticky-cart-primary span,
+  .sticky-cart-secondary {
+    white-space: nowrap;
+  }
+
+  .sticky-cart-primary .whatsapp-inline-icon {
+    width: 0.88rem;
+    height: 0.88rem;
   }
 
   .cart-drawer {
