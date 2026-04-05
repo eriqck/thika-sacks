@@ -2,75 +2,340 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Thika Sacks | Packaging Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thika Sacks | Strong sacks for farmers, charcoal traders and cereal sellers</title>
+  <meta
+    name="description"
+    content="Buy the right sacks for maize, beans, charcoal, minerals and produce with clear prices, fast ordering and WhatsApp checkout."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-	<header>
-  <nav class="navbar">
-    <div class="nav-logo">
-      <img src="assets/logo.png" alt="Thika Sacks Logo" />
-      <span>THIKA SACKS</span>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a class="brand" href="#top" aria-label="Thika Sacks home">
+          <div class="brand-logo">
+            <img src="assets/Thika sacks logo.jpg" alt="Thika Sacks logo" />
+          </div>
+          <div class="brand-copy">
+            <p>Thika Sacks</p>
+            <span>Sacks for farms, charcoal, minerals and cereal trade</span>
+          </div>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="#catalog">Catalog</a>
+          <a href="#buyers">Buyers</a>
+          <a href="#why-us">Why us</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="ghost-link" href="https://wa.me/254114191177" target="_blank" rel="noreferrer">
+            <img class="whatsapp-inline-icon" src="assets/whatsapp-icon.jpeg" alt="" />
+            <span>WhatsApp</span>
+          </a>
+          <button class="header-cart-button" type="button" data-open-cart>
+            Cart
+            <span data-cart-count>0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero-section">
+        <div class="hero-main-card">
+          <div class="hero-pill">Clear prices. Fast ordering. Wholesale and retail ready.</div>
+
+          <h1>Buy the right sacks for maize, beans, charcoal, minerals and produce without wasting time.</h1>
+
+          <p class="hero-copy">
+            Whether you are a farmer, charcoal vendor, mineral miner, cereal wholesaler or retail
+            trader, Thika Sacks gives you the sack sizes you need at clear prices so you can buy
+            faster, protect your margin and keep stock moving.
+          </p>
+
+          <div class="hero-actions">
+            <button class="hero-primary" type="button" data-open-cart>Start order</button>
+            <a class="hero-secondary" href="#catalog">Browse catalog</a>
+          </div>
+
+          <div class="hero-chips">
+            <span>From Ksh 12 per sack</span>
+            <span>Sizes from 5kg to 130kg</span>
+            <span>WhatsApp order confirmation</span>
+          </div>
+
+          <div class="hero-highlight-grid">
+            <article>
+              <h2>For farmers and produce handlers</h2>
+              <p>Choose practical sack sizes for maize, beans, potatoes, cereals and general farm packaging.</p>
+            </article>
+            <article>
+              <h2>For charcoal and mineral traders</h2>
+              <p>Get strong sacks that work for heavier, rougher handling where durability matters most.</p>
+            </article>
+            <article>
+              <h2>For wholesale and retail sellers</h2>
+              <p>Buy a few pieces or place a larger restock order with fast pricing visibility before you checkout.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="hero-side-card">
+          <div class="hero-side-top">
+            <p>Popular stock</p>
+            <h2>New sacks, used sacks, sisal sacks and tarps for serious buyers.</h2>
+
+            <div class="hero-category-chips">
+              <span>90kg green</span>
+              <span>50kg white</span>
+              <span>130kg white</span>
+              <span>25kg clear</span>
+              <span>Used sacks</span>
+              <span>Sisal 90kg</span>
+              <span>Tarps</span>
+            </div>
+          </div>
+
+          <div class="hero-side-grid">
+            <article>
+              <div>01</div>
+              <h3>Buy faster</h3>
+              <p>See the size, price and quantity you need in one place instead of asking item by item.</p>
+            </article>
+            <article>
+              <div>02</div>
+              <h3>Order with confidence</h3>
+              <p>Build your cart, choose delivery and send one complete order summary for quick confirmation.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust-strip" id="buyers">
+        <article>Ideal for farmers packing cereals, beans and produce</article>
+        <article>Strong options for charcoal vendors and mineral traders</article>
+        <article>Clear pricing for wholesale restocking and retail buying</article>
+        <article>Fast WhatsApp ordering from Thika Town</article>
+      </section>
+
+      <section class="catalog-section" id="catalog">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Catalog</p>
+            <h2>Choose the right sack size for your product and your budget</h2>
+          </div>
+
+          <div class="catalog-controls">
+            <input id="search-input" type="search" placeholder="Search by size, type or use case" />
+            <div class="filter-row" data-filter-pills>
+              <button class="is-active" type="button" data-filter="all">All</button>
+              <button type="button" data-filter="new-sacks">New sacks</button>
+              <button type="button" data-filter="used-sacks">Used sacks</button>
+              <button type="button" data-filter="sisal-sacks">Sisal sacks</button>
+              <button type="button" data-filter="tarps">Tarps</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-grid" data-product-grid aria-live="polite"></div>
+      </section>
+
+      <section class="why-us-section" id="why-us">
+        <div class="why-us-copy">
+          <p class="section-label">Why Thika Sacks</p>
+          <h2>Built for buyers who care about price, speed and the right size in stock.</h2>
+          <p>
+            Buyers do not want guesswork. They want the right sack, the right price and a fast way
+            to place the order. This storefront is designed to reduce hesitation and help customers
+            move from browsing to buying quickly.
+          </p>
+        </div>
+
+        <div class="why-us-grid">
+          <article>
+            <h3>Know your cost before you order</h3>
+            <p>See the price per sack immediately so you can budget faster, compare options easily and buy with confidence.</p>
+          </article>
+          <article>
+            <h3>Save time on every repeat order</h3>
+            <p>Wholesale and retail buyers can come back, pick their usual sizes quickly and place the next order with less delay.</p>
+          </article>
+          <article>
+            <h3>Choose sacks that match your work</h3>
+            <p>Find practical options for cereals, produce, charcoal, mining material and daily packaging so your goods move safely and neatly.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="delivery-section">
+        <div class="section-block">
+          <p class="section-label">Delivery and support</p>
+          <h2>How buyers place an order in under two minutes</h2>
+
+          <div class="delivery-grid">
+            <article>
+              <div>1</div>
+              <h3>Choose your sack size</h3>
+              <p>Pick the size and type that matches what you are packing, from 5kg to 130kg options.</p>
+            </article>
+            <article>
+              <div>2</div>
+              <h3>Set your quantity</h3>
+              <p>Order for retail, restock for your shop or prepare a larger wholesale purchase in one cart.</p>
+            </article>
+            <article>
+              <div>3</div>
+              <h3>Send on WhatsApp</h3>
+              <p>Your order summary is prepared automatically so confirmation is faster and easier.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq-section" id="faq">
+        <div class="section-block faq-block">
+          <div class="faq-heading">
+            <p class="section-label">FAQ</p>
+            <h2>Built for the questions buyers ask before ordering</h2>
+          </div>
+
+          <div class="faq-grid">
+            <article>
+              <h3>Do you sell both new and used sacks?</h3>
+              <p>
+                Yes. You can choose clean new sacks, used sacks for budget buying and new 90kg
+                sisal sacks for heavier-duty needs.
+              </p>
+            </article>
+            <article>
+              <h3>Who are these sacks best for?</h3>
+              <p>
+                They work well for farmers, charcoal vendors, mineral miners, cereal wholesalers,
+                market traders and retail shop buyers.
+              </p>
+            </article>
+            <article>
+              <h3>How do I place an order?</h3>
+              <p>
+                Add your items to cart, choose pickup or delivery and send the order through
+                WhatsApp for quick confirmation.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <article>
+        <h3>Thika Sacks</h3>
+        <p>Jamhuri Market, Thika Town</p>
+      </article>
+      <article>
+        <h3>Order support</h3>
+        <p><a href="https://wa.me/254114191177" target="_blank" rel="noreferrer">+254 114 191 177</a></p>
+      </article>
+      <article>
+        <h3>Hours</h3>
+        <p>Monday to Saturday, 8:00 AM to 6:00 PM</p>
+      </article>
+    </footer>
+  </div>
+
+  <div class="sticky-cart-bar">
+      <div class="sticky-cart-content">
+        <div>
+          <p>Ready to send your order?</p>
+          <span data-sticky-cart-summary>No items yet · Ksh 0 total</span>
+        </div>
+      <div class="sticky-cart-actions">
+        <button class="sticky-cart-secondary" type="button" data-open-cart>View cart</button>
+        <button class="sticky-cart-primary" type="button" data-checkout>
+          <img class="whatsapp-inline-icon" src="assets/whatsapp-icon.jpeg" alt="" />
+          <span>Send on WhatsApp</span>
+        </button>
+      </div>
     </div>
-    <input type="checkbox" id="menu-toggle" />
-    <label for="menu-toggle" class="menu-icon">&#9776;</label>
-    <ul class="nav-links">
-      <li><a href="#new-sacks">New Sacks</a></li>
-      <li><a href="#used-sacks">Second-Hand Sacks</a></li>
-      <li><a href="https://wa.me/254114191177" target="_blank">Contact</a></li>
-    </ul>
-  </nav>
-</header>
-
-
-  <div class="container">
-    <img src="assets/logo.png" alt="Thika Sacks Logo" class="logo" />
-    <h1>THIKA SACKS</h1>
-    <p class="tagline">Affordable New & Second-hand Sacks</p>
-
-    <section class="about">
-      <h2>About Us</h2>
-      <p>We are your trusted supplier of durable <strong>new</strong> and <strong>second-hand sacks</strong> in Thika. Perfect for packaging farm produce, grains, and more.</p>
-    </section>
-
-    <section class="products">
-      <div class="card">
-        <img src="assets/new-sacks.jpg" alt="New Sacks">
-        <h3>New Sacks</h3>
-        <p>Clean, heavy-duty sacks suitable for commercial and agricultural packaging.</p>
-      </div>
-      <div class="card">
-        <img src="assets/secondhand-sacks.jpg" alt="Second-hand Sacks">
-        <h3>Second-hand Sacks</h3>
-        <p>Eco-friendly and affordable solutions for farmers, recyclers, and traders.</p>
-      </div>
-    </section>
-
-    <section class="location">
-      <h2>Visit Us</h2>
-      <p>📍 Located at <strong>Thika Town - Jamhuri Market</strong></p>
-    </section>
-
-    <section class="testimonials">
-      <h2>What Our Customers Say</h2>
-      <div class="testimonial">“Very reliable seller. The sacks are quality and affordable!” – James K.</div>
-      <div class="testimonial">“Delivered on time. I’ll definitely order again.” – Mary W.</div>
-    </section>
-
-   
-    <!-- Floating WhatsApp Button -->
-<a href="https://wa.me/254114191177" class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp"> 
-<img src="assets/whatsapp-icon.jpeg" alt="WhatsApp" class="whatsapp-icon" />
-</a> 
-
   </div>
-  <footer class="footer">
-  <div class="footer-content">
-    <p>&copy; 2025 Thika Sacks. All rights reserved.</p>
-    <p>Located at Jamhuri Market, Thika Town | WhatsApp: <a href="https://wa.me/254114191177">+254114191177</a></p>
-  </div>
-</footer>
 
+  <div class="cart-overlay" data-cart-overlay hidden></div>
+
+  <aside class="cart-drawer" data-cart-drawer aria-labelledby="cart-title" aria-hidden="true">
+    <div class="cart-header">
+      <div>
+        <p class="section-label">Your order</p>
+        <h2 id="cart-title">Cart summary</h2>
+      </div>
+      <button class="cart-close" type="button" data-close-cart>Close</button>
+    </div>
+
+    <div class="cart-body">
+      <div class="cart-items" data-cart-items aria-live="polite"></div>
+
+      <form class="checkout-form" data-checkout-form>
+        <label>
+          <span>Customer name</span>
+          <input name="customerName" type="text" placeholder="Your name" />
+        </label>
+
+        <label>
+          <span>Phone number</span>
+          <input name="customerPhone" type="tel" placeholder="07xx xxx xxx" />
+        </label>
+
+        <label>
+          <span>Delivery option</span>
+          <select name="deliveryOption">
+            <option value="pickup">Pickup in Thika</option>
+            <option value="thika">Thika town delivery</option>
+            <option value="nairobi">Nairobi delivery</option>
+            <option value="countrywide">Countrywide dispatch</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Delivery location or landmark</span>
+          <input name="deliveryLocation" type="text" placeholder="Estate, town or pickup note" />
+        </label>
+
+        <label>
+          <span>Order note</span>
+          <textarea
+            name="orderNote"
+            rows="4"
+            placeholder="Add produce type, preferred sack size, delivery timing or any custom request"
+          ></textarea>
+        </label>
+      </form>
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-summary-line">
+        <span>Subtotal</span>
+        <strong data-subtotal>Ksh 0</strong>
+      </div>
+      <div class="cart-summary-line total">
+        <span>Total</span>
+        <strong data-total>Ksh 0</strong>
+      </div>
+      <button class="cart-place-order-button" type="button" data-checkout>
+        <img class="whatsapp-inline-icon" src="assets/whatsapp-icon.jpeg" alt="" />
+        <span>Place order on WhatsApp</span>
+      </button>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
 </body>
 </html>
