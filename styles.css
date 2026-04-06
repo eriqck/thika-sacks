@@ -813,6 +813,34 @@ button {
   margin-top: 1rem;
 }
 
+.product-option-select {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+
+.product-option-select span {
+  color: var(--stone-700);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.product-option-select select {
+  width: 100%;
+  border: 1px solid var(--stone-300);
+  border-radius: 1rem;
+  background: var(--white);
+  padding: 0.8rem 0.95rem;
+  color: var(--stone-900);
+  font-size: 0.92rem;
+  outline: none;
+}
+
+.product-option-select select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
 .min-pill {
   background: var(--stone-100);
   color: var(--stone-700);

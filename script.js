@@ -60,7 +60,7 @@ const products = [
     stock: "In stock",
   },
   {
-    id: "new-50kg-white-sack-economy",
+    id: "used-50kg-waterproof-sack",
     name: "Used 50kg Waterproof Sack",
     category: "used-sacks",
     categoryLabel: "Used sacks",
@@ -158,7 +158,7 @@ const products = [
     stock: "In stock",
   },
   {
-    id: "used-90kg-sack",
+    id: "used-fertilizer-sack",
     name: "Used Fertilizer Sack",
     category: "used-sacks",
     categoryLabel: "Used sacks",
@@ -218,14 +218,18 @@ const products = [
     name: "Heavy-Duty Tarp",
     category: "tarps",
     categoryLabel: "Tarps",
-    price: 2200,
-    unit: "per piece",
+    price: 3500,
+    unit: "per tarp",
     image: "assets/tarps.jpg",
-    badge: "Protect stock from weather, dust and rough handling",
-    tags: ["Waterproof", "Heavy-duty", "Storage cover"],
+    badge: "Protect stock from rain, dust and rough outdoor handling",
+    tags: ["Waterproof", "Heavy-duty", "Choose size"],
     minimum: 1,
     minimumLabel: "Min 1",
     stock: "In stock",
+    options: [
+      { id: "4x6", label: "4 x 6 meters", price: 3500 },
+      { id: "4x5", label: "4 x 5 meters", price: 2500 },
+    ],
   },
 ];
 
@@ -234,6 +238,7 @@ const state = {
   filter: "all",
   form: loadForm(),
   search: "",
+  selectedOptions: {},
 };
 
 const productGrid = document.querySelector("[data-product-grid]");
@@ -297,6 +302,15 @@ function formatCurrency(value) {
   return `Ksh ${Number(value).toLocaleString("en-KE")}`;
 }
 
+function getCartKey(productId, optionId = "") {
+  return optionId ? `${productId}::${optionId}` : productId;
+}
+
+function parseCartKey(cartKey) {
+  const [productId, optionId = ""] = String(cartKey).split("::");
+  return { optionId, productId };
+}
+
 function getFilteredProducts() {
   return products.filter((product) => {
     const matchesCategory = state.filter === "all" || product.category === state.filter;
@@ -311,18 +325,63 @@ function getProduct(productId) {
   return products.find((product) => product.id === productId);
 }
 
-function getCartQuantity(productId) {
-  return Number(state.cart[productId] || 0);
+function getSelectedOptionId(product) {
+  if (!product.options?.length) {
+    return "";
+  }
+
+  return state.selectedOptions[product.id] || product.options[0].id;
+}
+
+function getSelectedOption(product) {
+  if (!product.options?.length) {
+    return null;
+  }
+
+  const optionId = getSelectedOptionId(product);
+  return product.options.find((option) => option.id === optionId) || product.options[0];
+}
+
+function getVariantDetails(product, optionId = "") {
+  const option = product.options?.find((entry) => entry.id === optionId) || null;
+
+  return {
+    option,
+    optionId: option?.id || "",
+    price: option?.price ?? product.price,
+    unit: option ? "per tarp" : product.unit,
+  };
+}
+
+function getCartQuantity(cartKey) {
+  return Number(state.cart[cartKey] || 0);
 }
 
 function getLineItems() {
-  return products
-    .filter((product) => getCartQuantity(product.id) > 0)
-    .map((product) => ({
-      ...product,
-      quantity: getCartQuantity(product.id),
-      total: getCartQuantity(product.id) * product.price,
-    }));
+  return Object.entries(state.cart)
+    .filter(([, quantity]) => Number(quantity) > 0)
+    .map(([cartKey, quantity]) => {
+      const { optionId, productId } = parseCartKey(cartKey);
+      const product = getProduct(productId);
+      if (!product) {
+        return null;
+      }
+
+      const variant = getVariantDetails(product, optionId);
+      const numericQuantity = Number(quantity);
+
+      return {
+        ...product,
+        cartKey,
+        optionId: variant.optionId,
+        optionLabel: variant.option?.label || "",
+        price: variant.price,
+        quantity: numericQuantity,
+        total: numericQuantity * variant.price,
+        unit: variant.unit,
+      };
+    })
+    .filter(Boolean);
 }
 
 function getTotals() {
@@ -350,7 +409,11 @@ function renderProducts() {
 
   productGrid.innerHTML = visibleProducts
     .map((product) => {
-      const currentQty = getCartQuantity(product.id) || product.minimum;
+      const selectedOption = getSelectedOption(product);
+      const cartKey = getCartKey(product.id, selectedOption?.id || "");
+      const displayPrice = selectedOption?.price ?? product.price;
+      const displayUnit = selectedOption ? "per tarp" : product.unit;
+      const currentQty = getCartQuantity(cartKey) || product.minimum;
 
       return `
         <article class="product-card">
@@ -369,8 +432,8 @@ function renderProducts() {
             </div>
 
             <div class="price-row">
-              <strong>${formatCurrency(product.price)}</strong>
-              <span>${product.unit}</span>
+              <strong>${formatCurrency(displayPrice)}</strong>
+              <span>${displayUnit}</span>
             </div>
 
             <div class="tag-row">
@@ -378,21 +441,42 @@ function renderProducts() {
               ${product.tags.map((tag) => `<span class="tag-pill">${tag}</span>`).join("")}
             </div>
 
+            ${
+              product.options?.length
+                ? `
+                  <label class="product-option-select">
+                    <span>Select size</span>
+                    <select data-product-option="${product.id}">
+                      ${product.options
+                        .map(
+                          (option) => `
+                            <option value="${option.id}" ${option.id === selectedOption?.id ? "selected" : ""}>
+                              ${option.label} - ${formatCurrency(option.price)}
+                            </option>
+                          `,
+                        )
+                        .join("")}
+                    </select>
+                  </label>
+                `
+                : ""
+            }
+
             <div class="catalog-actions">
               <label class="qty-stepper" aria-label="Quantity for ${product.name}">
-                <button type="button" data-qty-minus="${product.id}">−</button>
+                <button type="button" data-qty-minus="${cartKey}">-</button>
                 <input
                   type="number"
                   min="${product.minimum}"
                   step="1"
                   value="${currentQty}"
                   data-minimum="${product.minimum}"
-                  data-qty-input="${product.id}"
+                  data-qty-input="${cartKey}"
                 />
-                <button type="button" data-qty-plus="${product.id}">+</button>
+                <button type="button" data-qty-plus="${cartKey}">+</button>
               </label>
 
-              <button class="add-button" type="button" data-add-product="${product.id}">
+              <button class="add-button" type="button" data-add-product="${cartKey}">
                 Add to cart
               </button>
             </div>
@@ -425,25 +509,25 @@ function renderCart() {
           <div class="cart-item-header">
             <div>
               <div class="cart-item-title">${item.name}</div>
-              <div class="cart-item-subtitle">${formatCurrency(item.price)} ${item.unit}</div>
+              <div class="cart-item-subtitle">${item.optionLabel ? `${item.optionLabel} · ` : ""}${formatCurrency(item.price)} ${item.unit}</div>
             </div>
             <strong class="cart-item-price">${formatCurrency(item.total)}</strong>
           </div>
 
           <div class="cart-item-actions">
             <label class="qty-stepper" aria-label="Adjust quantity for ${item.name}">
-              <button type="button" data-cart-minus="${item.id}">−</button>
+              <button type="button" data-cart-minus="${item.cartKey}">-</button>
               <input
                 type="number"
                 min="${item.minimum}"
                 step="1"
                 value="${item.quantity}"
-                data-cart-input="${item.id}"
+                data-cart-input="${item.cartKey}"
               />
-              <button type="button" data-cart-plus="${item.id}">+</button>
+              <button type="button" data-cart-plus="${item.cartKey}">+</button>
             </label>
 
-            <button class="cart-remove" type="button" data-remove-product="${item.id}">
+            <button class="cart-remove" type="button" data-remove-product="${item.cartKey}">
               Remove
             </button>
           </div>
@@ -472,18 +556,19 @@ function syncFormFields() {
   checkoutForm.orderNote.value = state.form.orderNote || "";
 }
 
-function setCartQuantity(productId, quantity) {
+function setCartQuantity(cartKey, quantity) {
+  const { optionId, productId } = parseCartKey(cartKey);
   const product = getProduct(productId);
   if (!product) {
     return;
   }
 
-  const nextValue = Number(quantity);
+  const normalizedQuantity = Number(quantity);
 
-  if (!Number.isFinite(nextValue) || nextValue <= 0) {
-    delete state.cart[productId];
+  if (!Number.isFinite(normalizedQuantity) || normalizedQuantity <= 0) {
+    delete state.cart[cartKey];
   } else {
-    state.cart[productId] = Math.max(product.minimum, Math.floor(nextValue));
+    state.cart[getCartKey(productId, optionId)] = Math.max(product.minimum, Math.floor(normalizedQuantity));
   }
 
   saveCart();
@@ -492,14 +577,18 @@ function setCartQuantity(productId, quantity) {
   updateCartIndicators();
 }
 
-function addToCart(productId, quantity) {
+function addToCart(cartKey, quantity) {
+  const { optionId, productId } = parseCartKey(cartKey);
   const product = getProduct(productId);
   if (!product) {
     return;
   }
 
-  const nextValue = Number(quantity);
-  state.cart[productId] = Math.max(product.minimum, Number.isFinite(nextValue) ? Math.floor(nextValue) : product.minimum);
+  const normalizedQuantity = Number(quantity);
+  state.cart[getCartKey(productId, optionId)] = Math.max(
+    product.minimum,
+    Number.isFinite(normalizedQuantity) ? Math.floor(normalizedQuantity) : product.minimum,
+  );
 
   saveCart();
   renderProducts();
@@ -536,7 +625,7 @@ function buildWhatsappMessage() {
     "",
     ...items.map(
       (item, index) =>
-        `${index + 1}. ${item.name} - Qty ${item.quantity} x ${formatCurrency(item.price)} = ${formatCurrency(item.total)}`,
+        `${index + 1}. ${item.name}${item.optionLabel ? ` (${item.optionLabel})` : ""} - Qty ${item.quantity} x ${formatCurrency(item.price)} = ${formatCurrency(item.total)}`,
     ),
     "",
     `Subtotal: ${formatCurrency(subtotal)}`,
@@ -558,19 +647,26 @@ function handleProductGridClick(event) {
 
   if (minusButton) {
     const input = productGrid.querySelector(`[data-qty-input="${minusButton.dataset.qtyMinus}"]`);
-    const minimum = Number(input.dataset.minimum || 1);
+    const minimum = Number(input?.dataset.minimum || 1);
     input.value = String(Math.max(minimum, Number(input.value || minimum) - 1));
   }
 
   if (plusButton) {
     const input = productGrid.querySelector(`[data-qty-input="${plusButton.dataset.qtyPlus}"]`);
-    const minimum = Number(input.dataset.minimum || 1);
+    const minimum = Number(input?.dataset.minimum || 1);
     input.value = String(Math.max(minimum, Number(input.value || minimum) + 1));
   }
 
   if (addButton) {
     const input = productGrid.querySelector(`[data-qty-input="${addButton.dataset.addProduct}"]`);
-    addToCart(addButton.dataset.addProduct, input.value);
+    addToCart(addButton.dataset.addProduct, input?.value || 1);
+  }
+}
+
+function handleProductGridChange(event) {
+  if (event.target.matches("[data-product-option]")) {
+    state.selectedOptions[event.target.dataset.productOption] = event.target.value;
+    renderProducts();
   }
 }
 
@@ -580,14 +676,15 @@ function handleCartClick(event) {
   const removeButton = event.target.closest("[data-remove-product]");
 
   if (minusButton) {
-    const productId = minusButton.dataset.cartMinus;
-    const product = getProduct(productId);
-    setCartQuantity(productId, getCartQuantity(productId) - (product ? 1 : 0));
+    const cartKey = minusButton.dataset.cartMinus;
+    const currentItem = getLineItems().find((item) => item.cartKey === cartKey);
+    setCartQuantity(cartKey, (currentItem?.quantity || 0) - 1);
   }
 
   if (plusButton) {
-    const productId = plusButton.dataset.cartPlus;
-    setCartQuantity(productId, getCartQuantity(productId) + 1);
+    const cartKey = plusButton.dataset.cartPlus;
+    const currentItem = getLineItems().find((item) => item.cartKey === cartKey);
+    setCartQuantity(cartKey, (currentItem?.quantity || 0) + 1);
   }
 
   if (removeButton) {
@@ -633,6 +730,7 @@ function initialize() {
   updateCartIndicators();
 
   productGrid.addEventListener("click", handleProductGridClick);
+  productGrid.addEventListener("change", handleProductGridChange);
   cartItems.addEventListener("click", handleCartClick);
   cartItems.addEventListener("change", handleCartInput);
   filterPills.addEventListener("click", handleFilterClick);
