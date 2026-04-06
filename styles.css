@@ -1619,4 +1619,27 @@ button {
   .cart-drawer {
     width: 100%;
   }
+
+  .cart-footer {
+    padding: 1.1rem;
+  }
+
+  .cart-place-order-button {
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.82rem 0.9rem;
+    font-size: 0.84rem;
+    line-height: 1.2;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .cart-place-order-button span {
+    min-width: 0;
+  }
+
+  .cart-place-order-button .whatsapp-inline-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
 }
