@@ -1618,17 +1618,23 @@ button {
 
   .cart-drawer {
     width: 100%;
+    height: 100dvh;
+    grid-template-rows: auto minmax(0, 1fr) auto;
   }
 
   .cart-footer {
-    padding: 1.1rem;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    padding: 0.9rem 1rem calc(0.95rem + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -12px 24px rgba(28, 25, 23, 0.08);
   }
 
   .cart-place-order-button {
     gap: 0.5rem;
-    margin-top: 1rem;
-    padding: 0.82rem 0.9rem;
-    font-size: 0.84rem;
+    margin-top: 0.85rem;
+    padding: 0.78rem 0.85rem;
+    font-size: 0.8rem;
     line-height: 1.2;
     text-align: center;
     white-space: normal;
@@ -1641,5 +1647,18 @@ button {
   .cart-place-order-button .whatsapp-inline-icon {
     width: 0.9rem;
     height: 0.9rem;
+  }
+
+  .cart-summary-line {
+    font-size: 0.88rem;
+  }
+
+  .cart-summary-line + .cart-summary-line {
+    margin-top: 0.55rem;
+  }
+
+  .cart-summary-line.total {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
   }
 }
